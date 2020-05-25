@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--被代理的目标对象-->
+    <bean id="target" class="proxy.proxyAop.Math"/>
+    <!--通知、横切逻辑-->
+    <bean id="advice" class="proxy.proxyAop.TimeSpanAdvice"/>
+    <!--代理对象-->
+    <!--interceptorNames 通知数组-->
+    <!--p:target-ref 被代理对象-->
+    <!--p:proxyTargetClass 被代理对象是否为一个类，如果是则使用cglib，否则使用jdk动态代理-->
+    <bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="advice"
+          p:target-ref="target"></bean>
+    <!--<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="interceptorNames" value="advice"></property>
+        <property name="targetName" value="target"></property>
+        <property name="proxyTargetClass" value="false"></property>
+    </bean>-->
+</beans>
